@@ -41,7 +41,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(40px, 9vw, 150px);
+  gap: clamp(40px, 15vw, 250px);
   padding: 64px 24px;
   max-width: 1180px;
   width: 100%;
@@ -151,22 +151,46 @@ body {
 /* ---------- Visual box ---------- */
 
 .hero-right {
-  flex-shrink: 0;
+    position: relative;
 }
 
+.video-container {
+    position: relative;
+    width: fit-content;
+}
 
 .visual-box {
-  width: clamp(260px, 33vw, 449px);
-  aspect-ratio: 449 / 489;
-  border-radius: 16px;
-  object-fit: cover;
+    display: block;
+    width: clamp(260px, 33vw, 449px);
+    aspect-ratio: 449 / 489;
+    object-fit: cover;
+    border-radius: 16px;
 }
+
+.sound-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+
+    background: rgba(0,0,0,.6);
+    color: white;
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+
 
 /* ---------- Footer ---------- */
 
 .site-footer {
   border-top: 1px solid #1a1a1a;
-  padding: 18px 24px;
+  padding: 14px 24px;
   text-align: center;
 }
 
