@@ -33,7 +33,7 @@
         document.body.appendChild(layer);
 
         // Scale the amount to the screen size so phones don't get overloaded.
-        const count = Math.min(220, Math.floor((innerWidth * innerHeight) / 6000));
+        const count = Math.min(400, Math.floor((innerWidth * innerHeight) / 3000));
 
         for (let i = 0; i < count; i++) {
           const p = document.createElement('span');
