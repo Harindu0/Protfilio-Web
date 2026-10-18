@@ -75,6 +75,52 @@ body {
   cursor: pointer;
 }
 
+/* ---------- Code block ---------- */
+
+.code-line {
+  margin: 0 0 32px;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: #cfcfcf;
+  overflow-x: auto;
+}
+
+.code-line code {
+  font-family: inherit;
+}
+
+.code-line .k { color: #c792ea; }  /* const */
+.code-line .v { color: #82aaff; }  /* secrets */
+.code-line .n { color: var(--accent); }  /* zeros, match the arrow */
+.code-line .c { color: var(--text-muted); }  /* comments */
+
+/* ---------- Poop effect ---------- */
+
+.poop-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+  transition: opacity 0.6s ease;
+}
+
+.poop-layer.fade {
+  opacity: 0;
+}
+
+.poop {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0) rotate(var(--rot));
+  animation: poop-pop 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) forwards;
+  user-select: none;
+}
+
+@keyframes poop-pop {
+  to { transform: translate(-50%, -50%) scale(1) rotate(var(--rot)); }
+}
+
 /* ---------- Project card ---------- */
 
 .project-card {
@@ -244,4 +290,10 @@ body {
   .social-btn {
     transition: none;
   }
+
+  .poop {
+    animation-duration: 0.01s;
+  }
 }
+
+.s { color: #a5d6a7; }
