@@ -95,33 +95,7 @@ body {
 .code-line .n { color: var(--accent); }  /* zeros, match the arrow */
 .code-line .c { color: var(--text-muted); }  /* comments */
 
-/* ---------- Poop effect ---------- */
-
-.poop-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  overflow: hidden;
-  transition: opacity 0.6s ease;
-}
-
-.poop-layer.fade {
-  opacity: 0;
-}
-
-.poop {
-  position: absolute;
-  transform: translate(-50%, -50%) scale(0) rotate(var(--rot));
-  animation: poop-pop 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) forwards;
-  user-select: none;
-}
-
-@keyframes poop-pop {
-  to { transform: translate(-50%, -50%) scale(1) rotate(var(--rot)); }
-}
-
-/* ---------- Project card ---------- */
+/* ---------- Project card / Play Button ---------- */
 
 .project-card {
   display: inline-flex;
@@ -137,6 +111,12 @@ body {
   color: var(--text-primary);
   margin-bottom: 30px;
   transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+  
+  /* Added styles to make the <button> look exactly like the old <a> tag */
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
 }
 
 .project-card:hover {
@@ -230,8 +210,6 @@ body {
     z-index: 10;
 }
 
-
-
 /* ---------- Footer ---------- */
 
 .site-footer {
@@ -289,10 +267,6 @@ body {
   .project-card,
   .social-btn {
     transition: none;
-  }
-
-  .poop {
-    animation-duration: 0.01s;
   }
 }
 
