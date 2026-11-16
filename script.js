@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // GAME MODAL LOGIC
+    // GAME MODAL & FULLSCREEN LOGIC
     // ==========================================
     const playBtn = document.getElementById('playGameBtn');
     const closeBtn = document.getElementById('closeGameBtn');
@@ -39,25 +39,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const iframe = document.getElementById('gameIframe');
 
     if (playBtn && modal && iframe) {
-        // Open Game
+        
+        // Open Game and Go Fullscreen
         playBtn.addEventListener('click', () => {
-            // Load the game into the iframe ONLY when clicked
-            iframe.src = '/Game/index.html'; 
+            // 1. Load the game (make sure this matches your folder name!)
+            iframe.src = '/game/index.html'; 
             
-            // Show the modal
+            // 2. Show the modal container
             modal.style.display = 'flex';
             
-            // Tiny delay for the fade-in animation to work properly
-            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+            // 3. Fade it in
+            setTimeout(() => { 
+                modal.style.opacity = '1'; 
+            }, 10);
+
+            // 4. Request Fullscreen on the Modal itself
+            if (modal.requestFullscreen) {
+                modal.requestFullscreen().catch((err) => {
+                    console.log("Fullscreen error:", err);
+                });
+            } else if (modal.webkitRequestFullscreen) { /* Safari */
+                modal.webkitRequestFullscreen();
+            } else if (modal.msRequestFullscreen) { /* IE11 */
+                modal.msRequestFullscreen();
+            }
         });
 
         // Close Game Function
         function closeGame() {
             modal.style.opacity = '0';
+            
+            // Exit Fullscreen if we are in it
+            if (document.fullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+
             setTimeout(() => {
                 modal.style.display = 'none';
-                // Clear the iframe to stop the game completely and reset it
-                iframe.src = ''; 
+                iframe.src = ''; // Stop the game completely
             }, 300);
         }
 
@@ -66,14 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
             closeBtn.addEventListener('click', closeGame);
         }
 
-        // Also close if they click outside the game area (on the dark background)
+        // Also close if they click the dark background
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeGame();
         });
 
-        // Close on Escape key
+        // Close on Escape key (Note: pressing Esc while in fullscreen automatically exits fullscreen)
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') closeGame();
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeGame();
+            }
+        });
+
+        // Extra safeguard: If the user exits fullscreen using F11 or Esc, close the game modal too
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement && modal.style.display === 'flex') {
+                closeGame();
+            }
         });
     }
 
