@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Open Game and Go Fullscreen
         playBtn.addEventListener('click', () => {
             // 1. Load the game (make sure this matches your folder name!)
-            iframe.src = '/game/index.html'; 
+            iframe.src = '/Game/index.html'; 
             
             // 2. Show the modal container
             modal.style.display = 'flex';
