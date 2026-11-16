@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Open Game
         playBtn.addEventListener('click', () => {
             // Load the game into the iframe ONLY when clicked
-            iframe.src = '/game/index.html'; 
+            iframe.src = '/Game/index.html'; 
             
             // Show the modal
             modal.style.display = 'flex';
