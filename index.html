@@ -33,17 +33,16 @@
   console.log(<span class="s">"Expect the unexpected."</span>);
 }</code></pre>
 
-        <a href="#" class="project-card" id="poopCard">
+        <!-- CHANGED: Replaced "PoopPoop" with "Play" and added an ID for the modal trigger -->
+        <button class="project-card" id="playGameBtn" style="border: none; background: none; padding: 0; text-align: left; cursor: pointer;">
           <span class="project-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <rect width="48" height="48" rx="11" fill="#f4f4f4"/>
-              <circle cx="17.5" cy="21.5" r="2.4" fill="#161616"/>
-              <circle cx="30.5" cy="21.5" r="2.4" fill="#161616"/>
-              <path d="M18 29.5c2 2.2 10 2.2 12 0" stroke="#161616" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <polygon points="18,14 34,24 18,34" fill="#161616" stroke="#161616" stroke-width="2" stroke-linejoin="round"/>
             </svg>
           </span>
-          <span class="project-name">PoopPoop</span>
-        </a>
+          <span class="project-name">Play</span>
+        </button>
 
         <div class="social-row">
           <a class="social-btn" href="https://github.com/Harindu0" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -102,6 +101,63 @@
     </footer>
 
   </div>
+
+  <!-- ========================================== -->
+  <!-- GAME MODAL OVERLAY (HIDDEN BY DEFAULT)     -->
+  <!-- ========================================== -->
+  <div id="gameModal" style="display: none; position: fixed; inset: 0; background: rgba(7, 8, 12, 0.96); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(5px);">
+    
+    <!-- Close Button -->
+    <button id="closeGameBtn" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; font-family: monospace; z-index: 10000; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">&times;</button>
+    
+    <!-- The Game Iframe -->
+    <iframe id="gameIframe" src="" title="Dark Runner Game" style="width: min(1100px, 95vw); height: min(600px, 85vh); border: none; border-radius: 1.2rem; background: #07080c; box-shadow: 0 0 30px rgba(0,0,0,0.8);"></iframe>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- GAME MODAL JAVASCRIPT                      -->
+  <!-- ========================================== -->
+  <script>
+    const playBtn = document.getElementById('playGameBtn');
+    const closeBtn = document.getElementById('closeGameBtn');
+    const modal = document.getElementById('gameModal');
+    const iframe = document.getElementById('gameIframe');
+
+    // Open Game
+    playBtn.addEventListener('click', () => {
+      // Load the game into the iframe ONLY when clicked
+      iframe.src = '/game/index.html'; 
+      
+      // Show the modal
+      modal.style.display = 'flex';
+      
+      // Tiny delay for the fade-in animation to work properly
+      setTimeout(() => { modal.style.opacity = '1'; }, 10);
+    });
+
+    // Close Game Function
+    function closeGame() {
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        // Clear the iframe to stop the game completely and reset it
+        iframe.src = ''; 
+      }, 300);
+    }
+
+    // Close on button click
+    closeBtn.addEventListener('click', closeGame);
+
+    // Also close if they click outside the game area (on the dark background)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeGame();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeGame();
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
