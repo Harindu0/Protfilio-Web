@@ -347,6 +347,29 @@ body {
     height: auto;
   }
 
+  /* Force title onto one line and adjust size */
+  .title br {
+    display: none; /* Hides the <br> tag on mobile */
+  }
+
+  .title {
+    font-size: clamp(28px, 7vw, 36px); /* Scales down to fit one line */
+    margin-bottom: 12px;
+  }
+
+  /* Smaller Theme Toggle Button */
+  .theme-toggle {
+    top: 16px;
+    right: 16px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .theme-toggle svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .subtitle {
     /* Disable the typing animation */
     animation: none !important;
@@ -357,7 +380,9 @@ body {
     /* Make it look nice on mobile */
     font-size: 14px;
     line-height: 1.5;
-    padding: 0 10px;
+    padding: 0; /* Removed padding so it aligns with the code card */
+    letter-spacing: 0; /* Fixed the messy stretched text */
+    text-transform: none; /* Removed forced uppercase */
   }
   
   .code-line {
@@ -381,10 +406,6 @@ body {
 
   .hero-left {
     max-width: 100%;
-  }
-
-  .title {
-    font-size: clamp(36px, 8vw, 48px);
   }
 
   .code-card {
