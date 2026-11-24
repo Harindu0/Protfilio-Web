@@ -1,16 +1,90 @@
 :root {
-  --bg: #0a0a0a;
-  --surface: #151515;
-  --surface-border: #272727;
-  --surface-border-hover: #3a3a3a;
-  --text-primary: #f3f3f3;
-  --text-secondary: #adadad;
-  --text-muted: #6f6f6f;
-  --accent: #4ade80;
-  --icon-color: #989898;
-  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --hano: 'Sreda';
+  /* Light Mode Default (Matches your screenshot) */
+  --bg: #F5F5F0;
+  --text-primary: #1A1A1A;
+  --text-secondary: #555555;
+  --accent: #FF5A5F;
+  
+  --card-bg: #FFFFFF;
+  --card-border: rgba(0,0,0,0.05);
+  --social-bg: #FFFFFF;
+  --social-border: rgba(0,0,0,0.08);
+  --social-shadow: rgba(0,0,0,0.02);
+  
+  --code-text: #333;
+  --code-k: #C678DD;
+  --code-v: #4078F2;
+  --code-n: #E45649;
+  --code-c: #A0A1A7;
+  --code-s: #50A14F;
+
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-code: 'Fira Code', monospace;
 }
+
+/* Dark Mode Palette */
+[data-theme="dark"] {
+  --bg: #0A0A0A;
+  --text-primary: #F3F3F3;
+  --text-secondary: #ADADAD;
+  --accent: #4ADE80; /* Green accent for dark mode */
+  
+  --card-bg: #151515;
+  --card-border: #272727;
+  --social-bg: #151515;
+  --social-border: #272727;
+  --social-shadow: transparent;
+
+  --code-text: #F0F0F0;
+  --code-k: #C792EA;
+  --code-v: #82AAFF;
+  --code-n: #4ADE80;
+  --code-c: #6F6F6F;
+  --code-s: #A5D6A7;
+}
+
+/* ... Keep your * { box-sizing } and html, body styles here ... */
+
+/* ---------- New Theme Toggle Button Styles ---------- */
+.theme-toggle {
+  position: fixed; /* Fixed so it stays top right */
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--social-bg);
+  border: 1px solid var(--social-border);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px var(--social-shadow);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show/Hide icons based on theme */
+[data-theme="light"] .sun-icon { opacity: 0; transform: rotate(90deg); }
+[data-theme="light"] .moon-icon { opacity: 1; transform: rotate(0deg); }
+
+[data-theme="dark"] .sun-icon { opacity: 1; transform: rotate(0deg); }
+[data-theme="dark"] .moon-icon { opacity: 0; transform: rotate(-90deg); }
 
 * {
   box-sizing: border-box;
@@ -19,70 +93,103 @@
 html, body {
   margin: 0;
   padding: 0;
+  /* Prevent scrolling */
+  height: 100%;
+  overflow: hidden; 
 }
 
 body {
   background: var(--bg);
   color: var(--text-primary);
-  font-family: var(--mono);
-  min-height: 100vh;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
 }
 
 .page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh; /* Force exact screen height */
+  overflow: hidden;
 }
 
-/* ---------- Hero ---------- */
-
+/* ---------- Hero Layout ---------- */
 .hero {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(40px, 15vw, 250px);
-  padding: 64px 24px;
-  max-width: 1180px;
+  gap: clamp(40px, 8vw, 100px);
+  padding: 0 5vw;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .hero-left {
-  max-width: 420px;
-  flex-shrink: 0;
+  flex: 1;
+  max-width: 500px;
+}
+
+/* ---------- Typography ---------- */
+.header {
+  margin-bottom: 30px;
 }
 
 .title {
-  font-size: clamp(30px, 3.6vw, 42px);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
-  margin: 0 0 20px;
-  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  letter-spacing: -1px;
 }
 
 .subtitle {
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   color: var(--text-secondary);
-  margin: 0 0 40px;
-  max-width: 400px;
+  margin: 0;
+  font-weight: 500;
 }
 
-.arrow {
-  color: var(--accent);
-  cursor: pointer;
+/* ---------- Floating Code Card ---------- */
+.code-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
 }
 
-/* ---------- Code block ---------- */
+.window-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #E0E0E0;
+}
+.window-dots span:nth-child(1) { background: #FF5F56; }
+.window-dots span:nth-child(2) { background: #FFBD2E; }
+.window-dots span:nth-child(3) { background: #27C93F; }
 
 .code-line {
-  margin: 0 0 32px;
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.7;
-  color: #cfcfcf;
+  margin: 0;
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.6;
+  
+  /* Make sure this says var(--code-text) */
+  color: var(--code-text); 
+  
   overflow-x: auto;
 }
 
@@ -90,63 +197,17 @@ body {
   font-family: inherit;
 }
 
-.code-line .k { color: #c792ea; }  /* const */
-.code-line .v { color: #82aaff; }  /* secrets */
-.code-line .n { color: var(--accent); }  /* zeros, match the arrow */
-.code-line .c { color: var(--text-muted); }  /* comments */
+/* Syntax Highlighting */
+.code-line .k { color: #C678DD; font-weight: 600; } 
+.code-line .v { color: #4078F2; } 
+.code-line .n { color: #E45649; font-weight: 600; } 
+.code-line .c { color: #A0A1A7; font-style: italic; }
+.code-line .s { color: #50A14F; }
 
-/* ---------- Project card / Play Button ---------- */
-
-.project-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  width: fit-content;
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-left: 3px solid var(--accent);
-  border-radius: 12px;
-  padding: 13px 22px 13px 18px;
-  text-decoration: none;
-  color: var(--text-primary);
-  margin-bottom: 30px;
-  transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
-  
-  /* Added styles to make the <button> look exactly like the old <a> tag */
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  outline: none;
-}
-
-.project-card:hover {
-  border-color: var(--accent);
-  background: #181818;
-  transform: translateY(-2px);
-}
-
-.project-icon {
-  display: flex;
-  flex-shrink: 0;
-}
-
-.project-icon svg {
-  width: 40px;
-  height: 40px;
-  display: block;
-}
-
-.project-name {
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.2px;
-}
-
-/* ---------- Social row ---------- */
-
+/* ---------- Social Row (Restored Icons) ---------- */
 .social-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .social-btn {
@@ -155,12 +216,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: 10px;
-  color: var(--icon-color);
+  background: var(--card-bg);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
 .social-btn svg {
@@ -169,105 +231,160 @@ body {
 }
 
 .social-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--surface-border-hover);
-  transform: translateY(-2px);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 90, 95, 0.15);
 }
 
-/* ---------- Visual box ---------- */
-
+/* ---------- Visual Box (Video) ---------- */
 .hero-right {
-    position: relative;
+  flex-shrink: 0;
 }
 
-.video-container {
-    position: relative;
-    width: fit-content;
+.video-wrapper {
+  position: relative;
+  width: clamp(280px, 30vw, 360px);
+  /* Adjusted aspect ratio to fit without scrolling */
+  aspect-ratio: 4 / 5; 
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease;
+}
+
+.video-wrapper:hover {
+  transform: scale(1.02);
 }
 
 .visual-box {
-    display: block;
-    width: clamp(260px, 33vw, 449px);
-    aspect-ratio: 449 / 489;
-    object-fit: cover;
-    border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .sound-btn {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
 
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-
-    background: rgba(0,0,0,.6);
-    color: white;
-    cursor: pointer;
-
-    z-index: 10;
+.sound-btn:hover {
+  background: rgba(255,255,255,0.4);
 }
 
 /* ---------- Footer ---------- */
-
 .site-footer {
-  border-top: 1px solid #1a1a1a;
-  padding: 14px 24px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding: 16px 24px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .site-footer p {
   margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* ---------- Focus states ---------- */
-
-.project-card:focus-visible,
-.social-btn:focus-visible {
+.social-btn:focus-visible,
+.sound-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* ---------- Responsive ---------- */
+/* Smooth color transition ONLY for the code block */
+.code-line,
+.code-line .k,
+.code-line .v,
+.code-line .n,
+.code-line .c,
+.code-line .s {
+  transition: color 0.4s ease;
+}
 
+
+.subtitle {
+  /* Ensure the text doesn't wrap while typing */
+  white-space: nowrap; 
+  overflow: hidden;
+  /* The border acts as the blinking cursor */
+  border-right: 2px solid var(--text-secondary); 
+  /* Adjust '2.5s' to make it type faster or slower */
+  animation: typing 3.0s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--text-secondary) }
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 860px) {
+  html, body {
+    overflow: auto; /* Allow scrolling on small screens */
+    height: auto;
+  }
+
+  .page {
+    height: auto;
+    min-height: 100vh;
+  }
+
   .hero {
     flex-direction: column;
-    padding: 56px 24px;
-    gap: 44px;
+    padding: 40px 24px;
+    gap: 40px;
+    text-align: center;
   }
 
   .hero-left {
     max-width: 100%;
   }
 
-  .visual-box {
-    width: min(80vw, 420px);
+  .title {
+    font-size: clamp(36px, 8vw, 48px);
   }
-}
 
-@media (max-width: 420px) {
+  .code-card {
+    text-align: left;
+  }
+
   .social-row {
-    gap: 8px;
+    justify-content: center;
   }
 
-  .social-btn {
-    width: 40px;
-    height: 40px;
+  .video-wrapper {
+    width: min(85vw, 380px);
+    aspect-ratio: 4 / 5;
   }
 }
 
 /* ---------- Reduced motion ---------- */
-
 @media (prefers-reduced-motion: reduce) {
-  .project-card,
-  .social-btn {
+  .video-wrapper, .social-btn {
     transition: none;
   }
 }
 
-.s { color: #a5d6a7; }
