@@ -359,6 +359,12 @@ body {
     line-height: 1.5;
     padding: 0 10px;
   }
+  
+  .code-line {
+    font-size: 11px; /* Makes the code smaller to fit the screen */
+    white-space: pre-wrap; /* Allows long lines to wrap to the next line */
+    word-break: break-all;
+  }
 
   .page {
     height: auto;
