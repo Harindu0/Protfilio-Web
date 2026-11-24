@@ -1,112 +1,45 @@
+// Set theme immediately to prevent flash of wrong color
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+} else {
+  document.documentElement.setAttribute('data-theme', 'light');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Keep the footer year accurate automatically.
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    // Footer Year
     const yearEl = document.getElementById('year');
     if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
     }
 
-    // Clicking the down arrow smoothly scrolls to the footer.
-    const arrow = document.querySelector('.arrow');
-    const footer = document.querySelector('.site-footer');
-    if (arrow && footer) {
-      arrow.addEventListener('click', () => {
-        footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-
-    // Video Sound 
+    // Video Sound Toggle
     const video = document.getElementById("visualBox");
     const btn = document.getElementById("soundBtn");
 
     if (btn && video) {
         btn.addEventListener("click", () => {
             video.muted = !video.muted;
+            
             if (video.muted) {
-                btn.textContent = "🔊";
+                btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
             } else {
-                btn.textContent = "🔇";
+                btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
             }
         });
     }
-
-    // ==========================================
-    // GAME MODAL & FULLSCREEN LOGIC
-    // ==========================================
-    const playBtn = document.getElementById('playGameBtn');
-    const closeBtn = document.getElementById('closeGameBtn');
-    const modal = document.getElementById('gameModal');
-    const iframe = document.getElementById('gameIframe');
-
-    if (playBtn && modal && iframe) {
-        
-        // Open Game and Go Fullscreen
-        playBtn.addEventListener('click', () => {
-            // 1. Load the game (make sure this matches your folder name!)
-            iframe.src = '/Game/index.html'; 
-            
-            // 2. Show the modal container
-            modal.style.display = 'flex';
-            
-            // 3. Fade it in
-            setTimeout(() => { 
-                modal.style.opacity = '1'; 
-            }, 10);
-
-            // 4. Request Fullscreen on the Modal itself
-            if (modal.requestFullscreen) {
-                modal.requestFullscreen().catch((err) => {
-                    console.log("Fullscreen error:", err);
-                });
-            } else if (modal.webkitRequestFullscreen) { /* Safari */
-                modal.webkitRequestFullscreen();
-            } else if (modal.msRequestFullscreen) { /* IE11 */
-                modal.msRequestFullscreen();
-            }
-        });
-
-        // Close Game Function
-        function closeGame() {
-            modal.style.opacity = '0';
-            
-            // Exit Fullscreen if we are in it
-            if (document.fullscreenElement) {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
-            }
-
-            setTimeout(() => {
-                modal.style.display = 'none';
-                iframe.src = ''; // Stop the game completely
-            }, 300);
-        }
-
-        // Close on button click
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeGame);
-        }
-
-        // Also close if they click the dark background
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeGame();
-        });
-
-        // Close on Escape key (Note: pressing Esc while in fullscreen automatically exits fullscreen)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                closeGame();
-            }
-        });
-
-        // Extra safeguard: If the user exits fullscreen using F11 or Esc, close the game modal too
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement && modal.style.display === 'flex') {
-                closeGame();
-            }
-        });
-    }
-
 });
