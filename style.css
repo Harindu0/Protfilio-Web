@@ -363,7 +363,8 @@ body {
   .code-line {
     font-size: 11px; /* Makes the code smaller to fit the screen */
     white-space: pre-wrap; /* Allows long lines to wrap to the next line */
-    word-break: break-all;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .page {
