@@ -375,7 +375,7 @@ body {
     flex-direction: column;
     padding: 40px 24px;
     gap: 40px;
-    text-align: center;
+    text-align: left;
   }
 
   .hero-left {
@@ -391,7 +391,7 @@ body {
   }
 
   .social-row {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .video-wrapper {
