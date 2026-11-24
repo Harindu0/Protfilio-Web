@@ -347,6 +347,19 @@ body {
     height: auto;
   }
 
+  .subtitle {
+    /* Disable the typing animation */
+    animation: none !important;
+    border-right: none !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    
+    /* Make it look nice on mobile */
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 0 10px;
+  }
+
   .page {
     height: auto;
     min-height: 100vh;
