@@ -3,26 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harindu  Sandeepa</title>
+  <title>Harindu Sandeepa</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <body>
+
+  <!-- Add this Toggle Button right here -->
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+    <!-- Sun Icon -->
+    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <!-- Moon Icon -->
+    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
   <div class="page">
+    <!-- Rest of your HTML stays exactly the same -->
 
+  <div class="page">
     <main class="hero">
-
+      
+      <!-- Left Column -->
       <div class="hero-left">
-        <h1 class="title">Hi, I'm Harindu.</h1>
+        <header class="header">
+          <h1 class="title">Harindu<br>Sandeepa.</h1>
+          <!--<p class="subtitle">Developer by day, Tinkerer by night.</p> -->
+          <p class="subtitle">Building things, breaking things, fixing things.</p>
+        </header>
 
-        
-
-       <pre class="code-line"><code><span class="k">const</span> <span class="v">brain</span> = {
+        <!-- Floating Code Card -->
+        <div class="code-card">
+          <div class="window-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <pre class="code-line"><code><span class="k">const</span> <span class="v">brain</span> = {
   logic:  <span class="n">99</span>,
   chaos:  <span class="n">1</span>,
   coffee: <span class="n">Infinity</span>
@@ -32,18 +64,9 @@
 <span class="k">if</span> (brain.chaos &gt; <span class="n">0</span>) {
   console.log(<span class="s">"Expect the unexpected."</span>);
 }</code></pre>
+        </div>
 
-               <!-- Play Button (Now uses your exact original CSS) -->
-        <button class="project-card" id="playGameBtn" type="button">
-          <span class="project-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <rect width="48" height="48" rx="11" fill="#f4f4f4"/>
-              <polygon points="18,14 34,24 18,34" fill="#161616" stroke="#161616" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="project-name">Play</span>
-        </button>
-
+        <!-- Restored Social Icons -->
         <div class="social-row">
           <a class="social-btn" href="https://github.com/Harindu0" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -84,79 +107,27 @@
         </div>
       </div>
 
+      <!-- Right Column -->
       <div class="hero-right">
-        <video class="visual-box" id="visualBox" autoplay muted loop playsinline>
-          <source src="Code.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <button id="soundBtn" class="sound-btn">🔊</button>
+        <div class="video-wrapper">
+          <video class="visual-box" id="visualBox" autoplay muted loop playsinline>
+            <source src="Code.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <button id="soundBtn" class="sound-btn" aria-label="Toggle Sound">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+          </button>
+        </div>
       </div>
-      
-       
 
     </main>
 
     <footer class="site-footer">
       <p>&copy; <span id="year">2026</span> HARINDU SANDEEPA &middot; SRI LANKA</p>
     </footer>
-
   </div>
-
-  <!-- ========================================== -->
-  <!-- GAME MODAL OVERLAY (HIDDEN BY DEFAULT)     -->
-  <!-- ========================================== -->
-  <div id="gameModal" style="display: none; position: fixed; inset: 0; background: rgba(7, 8, 12, 0.96); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(5px);">
-    
-    <!-- Close Button -->
-    <button id="closeGameBtn" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; font-family: monospace; z-index: 10000; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">&times;</button>
-    
-    <!-- The Game Iframe -->
-    <iframe id="gameIframe" src="" title="Dark Runner Game" style="width: 100vw; height: 100vh; border: none; background: #07080c;"></iframe>
-
-  <!-- ========================================== -->
-  <!-- GAME MODAL JAVASCRIPT                      -->
-  <!-- ========================================== -->
-  <script>
-    const playBtn = document.getElementById('playGameBtn');
-    const closeBtn = document.getElementById('closeGameBtn');
-    const modal = document.getElementById('gameModal');
-    const iframe = document.getElementById('gameIframe');
-
-    // Open Game
-    playBtn.addEventListener('click', () => {
-      // Load the game into the iframe ONLY when clicked
-      iframe.src = '/Game/index.html'; 
-      
-      // Show the modal
-      modal.style.display = 'flex';
-      
-      // Tiny delay for the fade-in animation to work properly
-      setTimeout(() => { modal.style.opacity = '1'; }, 10);
-    });
-
-    // Close Game Function
-    function closeGame() {
-      modal.style.opacity = '0';
-      setTimeout(() => {
-        modal.style.display = 'none';
-        // Clear the iframe to stop the game completely and reset it
-        iframe.src = ''; 
-      }, 300);
-    }
-
-    // Close on button click
-    closeBtn.addEventListener('click', closeGame);
-
-    // Also close if they click outside the game area (on the dark background)
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeGame();
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') closeGame();
-    });
-  </script>
 
   <script src="script.js"></script>
 </body>
