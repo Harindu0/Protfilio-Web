@@ -347,29 +347,6 @@ body {
     height: auto;
   }
 
-  /* Force title onto one line and adjust size */
-  .title br {
-    display: none; /* Hides the <br> tag on mobile */
-  }
-
-  .title {
-    font-size: clamp(28px, 7vw, 36px); /* Scales down to fit one line */
-    margin-bottom: 12px;
-  }
-
-  /* Smaller Theme Toggle Button */
-  .theme-toggle {
-    top: 16px;
-    right: 16px;
-    width: 34px;
-    height: 34px;
-  }
-
-  .theme-toggle svg {
-    width: 16px;
-    height: 16px;
-  }
-
   .subtitle {
     /* Disable the typing animation */
     animation: none !important;
@@ -380,14 +357,17 @@ body {
     /* Make it look nice on mobile */
     font-size: 14px;
     line-height: 1.5;
-    padding: 0; /* Removed padding so it aligns with the code card */
-    letter-spacing: 0; /* Fixed the messy stretched text */
-    text-transform: none; /* Removed forced uppercase */
+    
+    /* KEY CHANGE: Removed padding so it aligns perfectly left */
+    padding: 0; 
+    
+    /* Ensure it aligns left */
+    text-align: left; 
   }
   
   .code-line {
-    font-size: 11px; /* Makes the code smaller to fit the screen */
-    white-space: pre-wrap; /* Allows long lines to wrap to the next line */
+    font-size: 11px; 
+    white-space: pre-wrap; 
     word-break: break-word;
     overflow-wrap: break-word;
   }
@@ -401,18 +381,35 @@ body {
     flex-direction: column;
     padding: 40px 24px;
     gap: 40px;
+    
+    /* KEY CHANGE: Ensure the whole container is left-aligned */
+    align-items: flex-start; 
     text-align: left;
   }
 
   .hero-left {
     max-width: 100%;
+    width: 100%; /* Ensures it takes full width to align left */
+  }
+
+  .title {
+    font-size: clamp(36px, 8vw, 48px);
+    text-align: left;
   }
 
   .code-card {
     text-align: left;
+    width: 100%; /* Makes the card stretch nicely */
   }
 
   .social-row {
+    justify-content: flex-start;
+  }
+
+  /* Adjust the video wrapper to align left instead of center */
+  .hero-right {
+    width: 100%;
+    display: flex;
     justify-content: flex-start;
   }
 
@@ -421,7 +418,6 @@ body {
     aspect-ratio: 4 / 5;
   }
 }
-
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .video-wrapper, .social-btn {
